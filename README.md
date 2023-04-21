@@ -43,6 +43,10 @@ func main() {
 }
 ```
 
+* `Sub` is the `Subject`: the user or system that the token is about.
+* `Exp` is the expiration time of the token.
+* The secret key is used when JWT tokens are generated or verified, together with the HMAC SHA256 algorithm.
+
 See `cmd/simple/main.go` for an example web server that also comes with example `curl` commands.
 
 ## General info
