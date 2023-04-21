@@ -1,2 +1,8 @@
 # simplejwt
-A very simple web server that uses JWT via HTTP headers
+
+A simple JWT package.
+
+An example web server is included (`cmd/simple/main.go`).
+
+* Version: 1.0.0
+* License: BSD-3
