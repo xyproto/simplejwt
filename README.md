@@ -2,9 +2,7 @@
 
 A simple JWT package.
 
-## Example use
-
-### Generate and verify JWT tokens
+## Generate and verify JWT tokens
 
 ```go
 package main
@@ -51,10 +49,12 @@ func main() {
 
 This example is also available as `cmd/simple/main.go`.
 
-### Simple server
+## Set up a simple HTTP server
 
-This is a simple HTTP server that will serve a page at `http://localhost:4000` which contains instructions for how to use `curl` together with it.
-The `/generated` handler can be used for generating a JWT token, and the `/protected` handler will only show the protected data if it is given a valid JWT token.
+This is a simple HTTP server that serves a page at `http://localhost:4000/` which contains instructions for how `curl` can be used to generate and use JWT tokens together with the `/generated` and `/protected` endpoints.
+
+* `/generated` is for generating a JWT token.
+* `/protected` is for retrieving protected data, but only if it is also given a valid JWT token.
 
 ```go
 package main
