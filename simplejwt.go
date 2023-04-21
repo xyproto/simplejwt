@@ -26,16 +26,16 @@ type JWTHeader struct {
 }
 
 var (
-	serverSecret             = []byte("asdfasdf")
+	jwtSecret                = []byte("asdfasdf")
 	errInvalidTokenFormat    = errors.New("invalid token format")
 	errInvalidTokenSignature = errors.New("invalid token signature")
 	errInvalidTokenPayload   = errors.New("invalid token payload")
 	errTokenExpired          = errors.New("token has expired")
 )
 
-// SetServerSecret sets the secret key used for generating and validating JWT tokens.
-func SetServerSecret(secret string) {
-	serverSecret = []byte(secret)
+// SetSecret sets the secret key used for generating and validating JWT tokens.
+func SetSecret(secret string) {
+	jwtSecret = []byte(secret)
 }
 
 // Generate generates a JWT token with the provided payload and an optional custom header.
@@ -63,7 +63,7 @@ func Generate(payload Payload, customHeader *JWTHeader) (string, error) {
 	payloadEncoded := base64.URLEncoding.EncodeToString(payloadBytes)
 
 	token := fmt.Sprintf("%s.%s", headerEncoded, payloadEncoded)
-	mac := hmac.New(sha256.New, serverSecret)
+	mac := hmac.New(sha256.New, jwtSecret)
 	mac.Write([]byte(token))
 	signature := base64.URLEncoding.EncodeToString(mac.Sum(nil))
 
@@ -81,7 +81,7 @@ func Validate(token string) (Payload, error) {
 
 	tokenToSign := fmt.Sprintf("%s.%s", parts[0], parts[1])
 
-	mac := hmac.New(sha256.New, serverSecret)
+	mac := hmac.New(sha256.New, jwtSecret)
 	mac.Write([]byte(tokenToSign))
 	expectedSignature := base64.URLEncoding.EncodeToString(mac.Sum(nil))
 
