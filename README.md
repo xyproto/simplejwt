@@ -51,10 +51,13 @@ This example is also available as `cmd/simple/main.go`.
 
 ## Set up a simple HTTP server
 
-This is a simple HTTP server that serves a page at `http://localhost:4000/` which contains instructions for how `curl` can be used to generate and use JWT tokens together with the `/generated` and `/protected` endpoints.
+This is a simple HTTP server that can be accessed in a browser as `http://localhost:4000`.
 
-* `/generated` is for generating a JWT token.
-* `/protected` is for retrieving protected data, but only if it is also given a valid JWT token.
+It has the following endpoints:
+
+* `/` - a HTML page with instructions for how to use `curl`.
+* `/generate`  - for generating a JWT token.
+* `/protected` - for retrieving protected data, but only if it is also given a valid JWT token.
 
 ```go
 package main
