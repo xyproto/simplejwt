@@ -13,8 +13,8 @@ import (
 	"time"
 )
 
-// JWTPayload represents the payload of a JWT.
-type JWTPayload struct {
+// Payload represents the payload of a JWT.
+type Payload struct {
 	Sub string `json:"sub"`
 	Exp int64  `json:"exp"`
 }
@@ -39,7 +39,7 @@ func SetServerSecret(secret string) {
 }
 
 // Generate generates a JWT token with the provided payload and an optional custom header.
-func Generate(payload JWTPayload, customHeader *JWTHeader) (string, error) {
+func Generate(payload Payload, customHeader *JWTHeader) (string, error) {
 	header := JWTHeader{
 		Alg: "HS256",
 		Typ: "JWT",
@@ -73,10 +73,10 @@ func Generate(payload JWTPayload, customHeader *JWTHeader) (string, error) {
 }
 
 // Validate validates a JWT token and returns the decoded payload if the token is valid.
-func Validate(token string) (JWTPayload, error) {
+func Validate(token string) (Payload, error) {
 	parts := strings.Split(token, ".")
 	if len(parts) != 3 {
-		return JWTPayload{}, errInvalidTokenFormat
+		return Payload{}, errInvalidTokenFormat
 	}
 
 	tokenToSign := fmt.Sprintf("%s.%s", parts[0], parts[1])
@@ -86,22 +86,22 @@ func Validate(token string) (JWTPayload, error) {
 	expectedSignature := base64.URLEncoding.EncodeToString(mac.Sum(nil))
 
 	if parts[2] != expectedSignature {
-		return JWTPayload{}, errInvalidTokenSignature
+		return Payload{}, errInvalidTokenSignature
 	}
 
 	payloadBytes, err := base64.URLEncoding.DecodeString(parts[1])
 	if err != nil {
-		return JWTPayload{}, errInvalidTokenPayload
+		return Payload{}, errInvalidTokenPayload
 	}
 
-	var payload JWTPayload
+	var payload Payload
 	err = json.Unmarshal(payloadBytes, &payload)
 	if err != nil {
-		return JWTPayload{}, errInvalidTokenPayload
+		return Payload{}, errInvalidTokenPayload
 	}
 
 	if time.Now().Unix() > payload.Exp {
-		return JWTPayload{}, errTokenExpired
+		return Payload{}, errTokenExpired
 	}
 
 	return payload, nil

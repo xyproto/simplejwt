@@ -15,7 +15,7 @@ func generateHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	payload := simplejwt.JWTPayload{
+	payload := simplejwt.Payload{
 		Sub: "1234567890",
 		Exp: time.Now().Add(time.Hour).Unix(),
 	}
