@@ -1,3 +1,4 @@
+cmd/google/google
 cmd/server/server
 cmd/simple/simple
 *.o
