@@ -4,12 +4,6 @@ A simple JWT package.
 
 ## Example use
 
-# simplejwt
-
-A simple JWT package.
-
-## Example use
-
 ```go
 package main
 
