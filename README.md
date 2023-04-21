@@ -1,6 +1,4 @@
-# simplejwt
-
-[![Build](https://github.com/xyproto/simplejwt/actions/workflows/build.yml/badge.svg)](https://github.com/xyproto/simplejwt/actions/workflows/build.yml)
+# simplejwt [![Build](https://github.com/xyproto/simplejwt/actions/workflows/build.yml/badge.svg)](https://github.com/xyproto/simplejwt/actions/workflows/build.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/xyproto/simplejwt)](https://goreportcard.com/report/github.com/xyproto/simplejwt) [![License](https://img.shields.io/badge/license-BSD-green.svg?style=flat)](https://raw.githubusercontent.com/xyproto/simplejwt/main/LICENSE)
 
 A simple JWT package.
 
