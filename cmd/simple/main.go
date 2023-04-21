@@ -13,8 +13,8 @@ func main() {
 
 	// Generate a token
 	payload := simplejwt.Payload{
-		Sub: "1234567890",
-		Exp: time.Now().Add(time.Hour).Unix(),
+		Subject: "1234567890",
+		Expires: time.Now().Add(time.Hour),
 	}
 
 	token, err := simplejwt.Generate(payload, nil)

@@ -13,20 +13,20 @@ import (
 	"time"
 )
 
-// Payload represents the payload of a JWT.
+// Payload represents the payload of a JWT token
 type Payload struct {
-	Sub string `json:"sub"`
-	Exp int64  `json:"exp"`
+	Subject string    `json:"sub"`
+	Expires time.Time `json:"exp"`
 }
 
-// JWTHeader represents the header of a JWT.
-type JWTHeader struct {
-	Alg string `json:"alg"`
-	Typ string `json:"typ"`
+// Header represents the header of a JWT token
+type Header struct {
+	Algorithm string `json:"alg"`
+	Type      string `json:"typ"`
 }
 
 var (
-	jwtSecret                = []byte("asdfasdf")
+	secretKey                = []byte("your-secret-key")
 	errInvalidTokenFormat    = errors.New("invalid token format")
 	errInvalidTokenSignature = errors.New("invalid token signature")
 	errInvalidTokenPayload   = errors.New("invalid token payload")
@@ -35,14 +35,14 @@ var (
 
 // SetSecret sets the secret key used for generating and validating JWT tokens.
 func SetSecret(secret string) {
-	jwtSecret = []byte(secret)
+	secretKey = []byte(secret)
 }
 
 // Generate generates a JWT token with the provided payload and an optional custom header.
-func Generate(payload Payload, customHeader *JWTHeader) (string, error) {
-	header := JWTHeader{
-		Alg: "HS256",
-		Typ: "JWT",
+func Generate(payload Payload, customHeader *Header) (string, error) {
+	header := Header{
+		Algorithm: "HS256",
+		Type:      "JWT",
 	}
 
 	if customHeader != nil {
@@ -63,7 +63,7 @@ func Generate(payload Payload, customHeader *JWTHeader) (string, error) {
 	payloadEncoded := base64.URLEncoding.EncodeToString(payloadBytes)
 
 	token := fmt.Sprintf("%s.%s", headerEncoded, payloadEncoded)
-	mac := hmac.New(sha256.New, jwtSecret)
+	mac := hmac.New(sha256.New, secretKey)
 	mac.Write([]byte(token))
 	signature := base64.URLEncoding.EncodeToString(mac.Sum(nil))
 
@@ -81,7 +81,7 @@ func Validate(token string) (Payload, error) {
 
 	tokenToSign := fmt.Sprintf("%s.%s", parts[0], parts[1])
 
-	mac := hmac.New(sha256.New, jwtSecret)
+	mac := hmac.New(sha256.New, secretKey)
 	mac.Write([]byte(tokenToSign))
 	expectedSignature := base64.URLEncoding.EncodeToString(mac.Sum(nil))
 
@@ -100,7 +100,7 @@ func Validate(token string) (Payload, error) {
 		return Payload{}, errInvalidTokenPayload
 	}
 
-	if time.Now().Unix() > payload.Exp {
+	if time.Now().Unix() > payload.Expires.Unix() {
 		return Payload{}, errTokenExpired
 	}
 

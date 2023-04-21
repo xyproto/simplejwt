@@ -20,8 +20,8 @@ func main() {
 
     // Generate a token
     payload := simplejwt.Payload{
-        Sub: "1234567890",
-        Exp: time.Now().Add(time.Hour).Unix(),
+        Subject: "1234567890",
+        Expires: time.Now().Add(time.Hour),
     }
 
     token, err := simplejwt.Generate(payload, nil)
@@ -43,8 +43,8 @@ func main() {
 }
 ```
 
-* `Sub` is the `Subject`: the user or system that the token is about.
-* `Exp` is the expiration time of the token.
+* `Subject` is the user or system that the token is about.
+* `Expires` is the expiration time of the token.
 * The secret key is used when JWT tokens are generated or verified, together with the HMAC SHA256 algorithm.
 
 This example is also available as `cmd/simple/main.go`.
@@ -78,8 +78,8 @@ func generateHandler(w http.ResponseWriter, r *http.Request) {
     }
 
     payload := simplejwt.Payload{
-        Sub: "1234567890",
-        Exp: time.Now().Add(time.Hour).Unix(),
+        Subject: "1234567890",
+        Expires: time.Now().Add(time.Hour),
     }
     token, err := simplejwt.Generate(payload, nil)
     if err != nil {
@@ -166,6 +166,6 @@ This example is also available as `cmd/server/main.go`.
 
 ## General info
 
-* Version: 1.0.1
+* Version: 1.2.0
 * License: BSD-3
 * Author: Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
