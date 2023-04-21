@@ -1,5 +1,7 @@
 # simplejwt
 
+[![Build](https://github.com/xyproto/simplejwt/actions/workflows/build.yml/badge.svg)](https://github.com/xyproto/simplejwt/actions/workflows/build.yml)
+
 A simple JWT package.
 
 ## Example use
