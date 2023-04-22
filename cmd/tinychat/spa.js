@@ -108,13 +108,21 @@ async function sendMessage(event) {
 
 function formatTimestamp(timestamp) {
     const date = new Date(timestamp);
-    const options = { weekday: "long", day: "2-digit", month: "long" };
-    const dateString = date.toLocaleDateString("en-US", options);
-    const dayNumSuffix = getDayNumSuffix(date.getDate());
-    return `${dateString.slice(0, -3)}${dayNumSuffix}, ${date.getHours()}:${date
-        .getMinutes()
-        .toString()
-        .padStart(2, "0")}`;
+    const daysOfWeek = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+    ];
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    const dayOfMonth = date.getDate();
+    const dayOfMonthSuffix = getDayNumSuffix(dayOfMonth);
+    const hour = date.getHours();
+    const minute = date.getMinutes().toString().padStart(2, "0");
+    return `${dayOfWeek}, ${dayOfMonth}${dayOfMonthSuffix}, ${hour}:${minute}`;
 }
 
 function getDayNumSuffix(dayNum) {
@@ -250,11 +258,6 @@ function requestNotificationPermission() {
         }
     });
 }
-
-el("requestNotificationPermission").addEventListener(
-    "click",
-    requestNotificationPermission
-);
 
 function showLoginAndRegisterForms() {
     if (!localStorage.getItem("token")) {
