@@ -8,7 +8,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Tiny Chat</h1>
+        <header>
+            <h1>Tiny Chat</h1>
+            <button id="logoutButton">Logout</button>
+        </header>
         <form id="registerForm">
             <input type="text" id="registerNickname" placeholder="Nickname" required>
             <input type="password" id="registerPassword" placeholder="Password" required>
@@ -19,7 +22,6 @@
             <input type="password" id="loginPassword" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
-        <button id="logoutButton">Logout</button>
         <div id="messages"></div>
         <form id="sendMessageForm">
             <textarea id="messageContent" placeholder="Type your message here" required></textarea>

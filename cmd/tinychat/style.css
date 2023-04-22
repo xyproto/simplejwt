@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
 
 body {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   background-color: #ffe7f3;
   margin: 0;
   padding: 0;
@@ -30,7 +30,7 @@ textarea {
   margin-bottom: 10px;
   border: 2px solid #ff69b4;
   border-radius: 5px;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
 
 button {
@@ -40,7 +40,7 @@ button {
   border: none;
   cursor: pointer;
   margin-bottom: 20px;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-weight: 700;
   border-radius: 5px;
   box-shadow: 2px 2px 0px #fff;
@@ -86,4 +86,28 @@ button:disabled {
   background-position: right bottom;
   opacity: 0.2;
   pointer-events: none;
+}
+
+/* Add the new styles after the existing styles */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#logoutButton {
+  background-color: #ff4f81;
+  box-shadow: 2px 2px 0px #fff;
+}
+
+#logoutButton:hover {
+  background-color: #ff2559;
+}
+
+/* Hide the logout button by default */
+
+#logoutButton {
+  display: none;
 }
