@@ -13,8 +13,9 @@ import (
 )
 
 type Message struct {
-	Sender  string
-	Content string
+	Sender    string
+	Content   string
+	Timestamp time.Time
 }
 
 var messageStore = struct {
@@ -60,6 +61,8 @@ func sendMessageHandler(w http.ResponseWriter, r *http.Request) {
 	message.Content = html.EscapeString(message.Content)
 
 	message.Sender = payload.Subject
+
+	message.Timestamp = time.Now()
 
 	messageStore.Lock()
 	fmt.Printf("ADDING %+v\n", message)

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -82,7 +83,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(token))
 }
 
-func logoutHandler(w http.ResponseWriter, r *http.Request) {
+func logoutHandler(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "text/plain")
 	w.Write([]byte("You have been logged out"))
 }
@@ -136,6 +137,6 @@ func main() {
 	http.HandleFunc("/messages", messagesHandler)
 	http.HandleFunc("/messages/sse", messagesSSEHandler)
 
-	fmt.Println("Server running on http://localhost:4000/")
-	http.ListenAndServe(":4000", nil)
+	fmt.Println("Serving http://localhost:8080/")
+	fmt.Fprintf(os.Stderr, "%v\n", http.ListenAndServe(":8080", nil))
 }
