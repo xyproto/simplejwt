@@ -1,6 +1,7 @@
 cmd/google/google
 cmd/server/server
 cmd/simple/simple
+cmd/tinychat/tinychat
 *.o
 *.bak
 *.tmp
