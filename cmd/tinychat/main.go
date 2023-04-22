@@ -136,6 +136,6 @@ func main() {
 	http.HandleFunc("/messages", messagesHandler)
 	http.HandleFunc("/messages/sse", messagesSSEHandler)
 
-	fmt.Println("Server running on :3000")
-	http.ListenAndServe(":3000", nil)
+	fmt.Println("Server running on http://localhost:4000/")
+	http.ListenAndServe(":4000", nil)
 }

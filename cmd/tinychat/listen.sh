@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set your domain or IP and port
-DOMAIN="localhost:3000"
+DOMAIN="localhost:4000"
 
 # Register a user
 echo "Registering a new user (Mallory)..."
