@@ -115,3 +115,30 @@ header {
 .error {
   color: red;
 }
+
+.message-row {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 0;
+}
+
+.message-content {
+  flex: 3;
+  padding-left: 10px;
+}
+
+.message-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 10px;
+  border-right: 1px solid #ccc;
+  justify-content: center;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: gray;
+  margin-bottom: 2px;
+}

@@ -84,6 +84,7 @@ function logout() {
     localStorage.removeItem("token");
     setFormVisibility(true);
     el("messages").innerHTML = "";
+    el("messages").style.display = "none";
     stopFetchingMessages();
 }
 
@@ -107,7 +108,27 @@ async function sendMessage(event) {
 
 function formatTimestamp(timestamp) {
     const date = new Date(timestamp);
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    const options = { weekday: "long", day: "2-digit", month: "long" };
+    const dateString = date.toLocaleDateString("en-US", options);
+    const dayNumSuffix = getDayNumSuffix(date.getDate());
+    return `${dateString.slice(0, -3)}${dayNumSuffix}, ${date.getHours()}:${date
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}`;
+}
+
+function getDayNumSuffix(dayNum) {
+    if (dayNum >= 11 && dayNum <= 13) return "th";
+    switch (dayNum % 10) {
+        case 1:
+            return "st";
+        case 2:
+            return "nd";
+        case 3:
+            return "rd";
+        default:
+            return "th";
+    }
 }
 
 async function fetchMessages() {
@@ -118,14 +139,22 @@ async function fetchMessages() {
     if (!res) return;
     const data = await res.json();
     const prevMsgs = el("messages").innerHTML;
+
     el("messages").innerHTML = data
         .map(
-            (msg) =>
-                `<p><strong>${msg.Sender} (${formatTimestamp(
-                    msg.Timestamp
-                )}):</strong> ${msg.Content}</p>`
+            (msg) => `
+                <div class="message-row">
+                    <div class="message-info">
+                        <span class="timestamp">${formatTimestamp(
+                            msg.Timestamp
+                        )}</span>
+                        <strong>${msg.Sender}</strong>
+                    </div>
+                    <div class="message-content">${msg.Content}</div>
+                </div>`
         )
         .join("");
+
     el("messages").scrollTop = el("messages").scrollHeight;
     showNotifications(data, prevMsgs);
 }
@@ -148,10 +177,23 @@ function setStatusMessage(message, isError = false) {
     }, 3000);
 }
 
-function showNotifications(data, prevMsgs) {
-    if (!("Notification" in window) || Notification.permission === "denied")
+function sendNotification(title, options) {
+    if (!("Notification" in window) || Notification.permission === "denied") {
         return;
-    if (Notification.permission === "default") Notification.requestPermission();
+    }
+
+    if (Notification.permission === "default") {
+        Notification.requestPermission().then((permission) => {
+            if (permission === "granted") {
+                new Notification(title, options);
+            }
+        });
+    } else {
+        new Notification(title, options);
+    }
+}
+
+function showNotifications(data, prevMsgs) {
     const loggedInUser = el("logoutButton").dataset.nickname;
 
     if (loggedInUser) {
@@ -162,18 +204,16 @@ function showNotifications(data, prevMsgs) {
 
         data.forEach((msg) => {
             const messageContent = `${msg.Sender}: ${msg.Content}`;
+            const mentionRegex = new RegExp(`\\b${loggedInUser}\\b`, "i");
+
             if (
-                msg.Content.toLowerCase().includes(
-                    loggedInUser.toLowerCase()
-                ) &&
+                mentionRegex.test(msg.Content) &&
                 !prevMsgArray.includes(messageContent)
             ) {
                 console.log(`Sending notification for: ${messageContent}`);
-                setTimeout(() => {
-                    new Notification("New mention in Tiny Chat", {
-                        body: messageContent,
-                    });
-                }, 100);
+                sendNotification("New mention in Tiny Chat", {
+                    body: messageContent,
+                });
             } else {
                 console.log(`No notification for: ${messageContent}`);
             }
@@ -192,11 +232,37 @@ if (localStorage.getItem("token")) {
     startFetchingMessages();
 }
 
+function requestNotificationPermission() {
+    if (!("Notification" in window)) {
+        console.log("This browser does not support notifications.");
+        return;
+    }
+
+    Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+            console.log("Notification permission granted.");
+            // Send a test notification
+            new Notification("Tiny Chat", {
+                body: "Test notification",
+            });
+        } else {
+            console.log("Notification permission denied.");
+        }
+    });
+}
+
+el("requestNotificationPermission").addEventListener(
+    "click",
+    requestNotificationPermission
+);
+
 function showLoginAndRegisterForms() {
     if (!localStorage.getItem("token")) {
         setFormVisibility(true);
+        el("messages").style.display = "none";
     } else {
         setFormVisibility(false);
+        el("messages").style.display = "block";
         startFetchingMessages();
     }
 }
