@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+  font-family: 'Quicksand', sans-serif;
+  background-color: #ffe7f3;
   margin: 0;
   padding: 0;
 }
@@ -14,6 +16,9 @@ body {
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  color: #ff69b4;
+  font-weight: 700;
+  text-shadow: 2px 2px 0px #fff;
 }
 
 input[type="text"],
@@ -23,19 +28,26 @@ textarea {
   padding: 10px;
   box-sizing: border-box;
   margin-bottom: 10px;
+  border: 2px solid #ff69b4;
+  border-radius: 5px;
+  font-family: 'Quicksand', sans-serif;
 }
 
 button {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #ff69b4;
   color: #fff;
   border: none;
   cursor: pointer;
   margin-bottom: 20px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  border-radius: 5px;
+  box-shadow: 2px 2px 0px #fff;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #ff4081;
 }
 
 button:disabled {
@@ -44,12 +56,14 @@ button:disabled {
 }
 
 #messages {
-  border: 1px solid #ccc;
+  border: 2px solid #ff69b4;
+  border-radius: 5px;
   padding: 10px;
   background-color: #fff;
   height: 300px;
   overflow-y: auto;
   margin-bottom: 10px;
+  box-shadow: 2px 2px 0px #ff69b4;
 }
 
 #sendMessageForm {
@@ -58,4 +72,18 @@ button:disabled {
 
 #logoutButton {
   display: none;
+}
+
+/* Cute SVG chat bubble as a background */
+#messages::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23ff69b4'%3E%3Cpath d='M256 48C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48zm0 368c-88.2 0-160-71.8-160-160s71.8-160 160-160 160 71.8 160 160-71.8 160-160 160zm-64-224h128v32H192zm0 64h128v32H192zm0 64h80v32h-80z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  opacity: 0.2;
+  pointer-events: none;
 }
