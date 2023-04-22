@@ -88,8 +88,6 @@ button:disabled {
   pointer-events: none;
 }
 
-/* Add the new styles after the existing styles */
-
 header {
   display: flex;
   justify-content: space-between;
@@ -105,8 +103,6 @@ header {
 #logoutButton:hover {
   background-color: #ff2559;
 }
-
-/* Hide the logout button by default */
 
 #logoutButton {
   display: none;
