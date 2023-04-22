@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"html"
 	"net/http"
 	"strings"
 	"sync"
@@ -54,6 +55,9 @@ func sendMessageHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid request", http.StatusBadRequest)
 		return
 	}
+
+	// Sanitize the message content
+	message.Content = html.EscapeString(message.Content)
 
 	message.Sender = payload.Subject
 
