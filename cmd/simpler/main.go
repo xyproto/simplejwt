@@ -10,7 +10,7 @@ func main() {
 	// Set the secret that is used for generating and validating JWT tokens
 	simplejwt.SetSecret("hunter1")
 
-	// Generate a token
+	// Generate a token by passing in a subject and for how many seconds the token should last
 	token := simplejwt.SimpleGenerate("bob@zombo.com", 3600)
 	if token == "" {
 		fmt.Println("Failed to generate token")
