@@ -219,7 +219,7 @@ function showNotifications(data, prevMsgs) {
                 !prevMsgArray.includes(messageContent)
             ) {
                 console.log(`Sending notification for: ${messageContent}`);
-                sendNotification("New mention in Tiny Chat", {
+                sendNotification("New mention in Kawaii Chat", {
                     body: messageContent,
                 });
             } else {
@@ -250,7 +250,7 @@ function requestNotificationPermission() {
         if (permission === "granted") {
             console.log("Notification permission granted.");
             // Send a test notification
-            new Notification("Tiny Chat", {
+            new Notification("Kawaii Chat", {
                 body: "Test notification",
             });
         } else {

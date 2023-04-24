@@ -8,4 +8,4 @@ include.txt
 cmd/server/server
 cmd/simple/simple
 cmd/simpler/simpler
-cmd/tinychat/tinychat
+cmd/kawaiichat/kawaiichat
