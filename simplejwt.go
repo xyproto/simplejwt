@@ -106,3 +106,24 @@ func Validate(token string) (Payload, error) {
 
 	return payload, nil
 }
+
+// SimpleGenerate takes a payload subject and the number of seconds forward in time the generated token should be valid for.
+// A string is returns that is either empty (if there were errors), or contains the generated JWT token.
+func SimpleGenerate(subject string, seconds int) string {
+	token, err := Generate(Payload{subject, time.Now().AddDate(0, 0, seconds)}, nil)
+	if err != nil {
+		return ""
+	}
+	return token
+}
+
+// SimpleValidate checks if the given JWT token is valid.
+// If it is, the suject of the payload is returned.
+// If not, an empty string is returned.
+func SimpleValidate(token string) string {
+	payload, err := Validate(token)
+	if err != nil {
+		return ""
+	}
+	return payload.Subject
+}
