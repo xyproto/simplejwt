@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	// Set the JWT secret
+	// Set the secret that is used for generating and validating JWT tokens
 	simplejwt.SetSecret("your-secret-key")
 
 	// Generate a token
