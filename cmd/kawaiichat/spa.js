@@ -17,6 +17,7 @@ const fetchAPI = async (url, method, headers, body) => {
 
     if (errMsg === "Invalid or expired token") {
         logout();
+        setStatusMessage(`Error: ${errMsg}`, true, 10000);
     } else {
         setStatusMessage(`Error: ${errMsg}`, true);
     }
@@ -175,14 +176,16 @@ function stopFetchingMessages() {
     clearInterval(fetchInterval);
 }
 
-function setStatusMessage(message, isError = false) {
+function setStatusMessage(message, isError = false, duration = 3000) {
     const statusMessage = el("statusMessage");
     statusMessage.textContent = message;
     statusMessage.classList.toggle("error", isError);
-    setTimeout(() => {
-        statusMessage.textContent = "";
-        statusMessage.classList.remove("error");
-    }, 3000);
+    if (duration) {
+        setTimeout(() => {
+            statusMessage.textContent = "";
+            statusMessage.classList.remove("error");
+        }, duration);
+    }
 }
 
 function sendNotification(title, options) {
