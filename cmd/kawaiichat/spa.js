@@ -17,7 +17,7 @@ const fetchAPI = async (url, method, headers, body) => {
 
     if (errMsg === "Invalid or expired token") {
         logout();
-        setStatusMessage(`Error: ${errMsg}`, true, 10000);
+        setFormVisibility(true);
     } else {
         setStatusMessage(`Error: ${errMsg}`, true);
     }
