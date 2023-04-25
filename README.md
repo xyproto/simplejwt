@@ -201,9 +201,9 @@ This example is also available as `cmd/server/main.go`.
 
 A simple chat application that uses Go for the backend and a vanilla JS SPA as the front end is available in `cmd/kawaiichat`.
 
-To try it out, just run `go build -mod=vendor && ./kawaiichat` and then visit `http://localhost:8080` in a browser.
+To try it out, just enter the `cmd/kawaiichat` directory, run `go build -mod=vendor && ./kawaiichat` and then visit `http://localhost:8080` in a browser.
 
-Here's a screenshot:
+Screenshot:
 
 ![kawaii chat screenshot](img/kawaiichat.png)
 
