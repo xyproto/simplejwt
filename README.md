@@ -197,6 +197,16 @@ func main() {
 
 This example is also available as `cmd/server/main.go`.
 
+### Kawaii Chat
+
+A simple chat application that uses Go for the backend and a vanilla JS SPA as the front end is available in `cmd/kawaiichat`.
+
+To try it out, just run `go build -mod=vendor && ./kawaiichat` and then visit `http://localhost:8080` in a browser.
+
+Here's a screenshot:
+
+![kawaii chat screenshot](img/kawaiichat.png)
+
 ## General info
 
 * Version: 1.2.0
