@@ -138,3 +138,31 @@ header {
   color: gray;
   margin-bottom: 2px;
 }
+
+.status-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#sendMessageForm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+#statusMessage {
+  flex-grow: 1;
+  text-align: right;
+  margin-left: 1rem;
+  color: green;
+  font-weight: bold;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+#statusMessage.error {
+  color: red;
+}

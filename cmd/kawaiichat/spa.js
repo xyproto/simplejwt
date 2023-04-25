@@ -46,7 +46,11 @@ async function register(event) {
             JSON.stringify({ nickname, password })
         );
         if (res) {
-            setStatusMessage("Successfully registered!");
+            // Update the call to setStatusMessage with the target element
+            setStatusMessage(
+                "Successfully registered!",
+                el("loginStatusMessage")
+            );
             el("registerForm").reset();
         }
     });
@@ -70,6 +74,13 @@ async function login(event) {
             fetchMessages();
             startFetchingMessages();
             el("logoutButton").dataset.nickname = nickname;
+        } else {
+            // Update the call to setStatusMessage with the target element
+            setStatusMessage(
+                "Invalid login credentials.",
+                el("loginStatusMessage"),
+                true
+            );
         }
     });
 }
@@ -176,14 +187,18 @@ function stopFetchingMessages() {
     clearInterval(fetchInterval);
 }
 
-function setStatusMessage(message, isError = false, duration = 3000) {
-    const statusMessage = el("statusMessage");
-    statusMessage.textContent = message;
-    statusMessage.classList.toggle("error", isError);
+function setStatusMessage(
+    message,
+    targetElement,
+    isError = false,
+    duration = 3000
+) {
+    targetElement.textContent = message;
+    targetElement.classList.toggle("error", isError);
     if (duration) {
         setTimeout(() => {
-            statusMessage.textContent = "";
-            statusMessage.classList.remove("error");
+            targetElement.textContent = "";
+            targetElement.classList.remove("error");
         }, duration);
     }
 }
