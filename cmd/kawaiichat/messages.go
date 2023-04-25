@@ -64,8 +64,8 @@ func sendMessageHandler(w http.ResponseWriter, r *http.Request) {
 
 	message.Timestamp = time.Now()
 
+	//fmt.Printf("ADDING %+v\n", message)
 	messageStore.Lock()
-	fmt.Printf("ADDING %+v\n", message)
 	messageStore.messages = append(messageStore.messages, message)
 	messageStore.Unlock()
 
