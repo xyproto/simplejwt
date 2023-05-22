@@ -15,7 +15,7 @@ import (
 
 func main() {
     // Set the secret that is used for generating and validating JWT tokens
-    simplejwt.SetSecret("hunter1")
+    simplejwt.SetSecret("server-secret-goes-here")
 
     // Generate a token by passing in a subject and for how many seconds the token should last
     token := simplejwt.SimpleGenerate("bob@zombo.com", 3600)
@@ -49,7 +49,7 @@ import (
 
 func main() {
     // Set the JWT secret
-    simplejwt.SetSecret("your-secret-key")
+    simplejwt.SetSecret("server-secret-goes-here")
 
     // Generate a token
     payload := simplejwt.Payload{
