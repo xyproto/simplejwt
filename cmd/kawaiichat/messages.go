@@ -12,6 +12,7 @@ import (
 	"github.com/xyproto/simplejwt"
 )
 
+// Message represents a message that is being sent from a user to the server
 type Message struct {
 	Sender    string
 	Content   string
@@ -64,7 +65,6 @@ func sendMessageHandler(w http.ResponseWriter, r *http.Request) {
 
 	message.Timestamp = time.Now()
 
-	//fmt.Printf("ADDING %+v\n", message)
 	messageStore.Lock()
 	messageStore.messages = append(messageStore.messages, message)
 	messageStore.Unlock()

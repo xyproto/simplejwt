@@ -1,3 +1,4 @@
+// package main is a simple chat server that uses JWT tokens
 package main
 
 import (
@@ -12,6 +13,7 @@ import (
 	"github.com/xyproto/simplejwt"
 )
 
+// User represents a user that can log in to the server
 type User struct {
 	Nickname string
 	Password string
